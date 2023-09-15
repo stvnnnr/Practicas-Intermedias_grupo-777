@@ -21,27 +21,38 @@ export class DashboardLoginComponent {
     // Llama al método login del servicio LoginService
     this.authService.login(this.nickname, this.password).subscribe(
       res => {
-        var respuesta: string = res["idtype"];
+        var respuesta: string = res["id_user_type"];
+        var id_user: string = res["dpi"]; // Identificador del usuario para las peticiones de su dashboard
+        const token = res['token']; // Asume que el backend devuelve el token en la respuesta
+
         console.log("respuesta" + respuesta);
-        if (respuesta == "1") {
-          this._router.navigate(['admin']);
-        } else if (respuesta == "2") {
-          this._router.navigate(['profesores']);
-        } else if (respuesta == "3") {
-          this._router.navigate(['alumnos']);
+        console.log('Token recibido: ' + token);
+
+        // Utiliza un objeto de rutas para mapear id_user_type a rutas
+        const routesMap: { [key: string]: string } = {
+          "1": "admin",
+          "2": "profesores",
+          "3": "alumnos"
+        };
+
+        // Verifica si id_user_type existe en el mapa de rutas
+        if (routesMap[respuesta]) {
+          // Ruta válida, redirige al usuario
+          this._router.navigate([routesMap[respuesta]]);
+          // Almacena el token y el id_user en localStorage
+          this.authService.setAuthToken(token);
+          this.authService.setIdUser(id_user);
         } else {
+          // Id_user_type no encontrado en el mapa, muestra un mensaje de error
           alert("Usuario o contraseña no valido");
           crearForm.reset();
           this._router.navigate(['login']);
-
         }
+
       }, (error) => {
         console.error(error);
       }
     )
-
-    console.log(this.nickname);
-    console.log(this.password);
 
   }
 }

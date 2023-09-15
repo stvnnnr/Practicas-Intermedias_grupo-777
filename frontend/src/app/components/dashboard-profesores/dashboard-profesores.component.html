@@ -17,12 +17,11 @@
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profesor Usuario <b
-                        class="fa fa-angle-down"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
-                </ul>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Profesor Usuario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" (click)="cerrarSesion()">Logout</a>
             </li>
         </ul>
     </nav>

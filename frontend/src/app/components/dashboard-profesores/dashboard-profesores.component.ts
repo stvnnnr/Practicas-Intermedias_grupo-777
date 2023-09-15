@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Curso } from 'src/app/models/curso-model';
 import { CursosService } from 'src/app/services/cursos-service';
+import { LoginService } from 'src/app/services/login-service';
 
 @Component({
   selector: 'app-dashboard-profesores',
@@ -11,9 +13,17 @@ export class DashboardProfesoresComponent {
 
   cursos: Curso[] = [];
 
-  constructor(private _servicioCurso: CursosService) { }
+  constructor(private _servicioCurso: CursosService, private _loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+
+    // Verifica si el token está presente
+    const token = this._loginService.getAuthToken();
+    if (!token) {
+      // Si no hay token, redirige al inicio de sesión (login)
+      this.router.navigate(['/login']);
+      return; // Detiene la ejecución del código para evitar cargar cursos sin autenticación
+    }
 
     /*this.cursos = [
       {
@@ -46,7 +56,7 @@ export class DashboardProfesoresComponent {
       }
     ];*/
 
-    this._servicioCurso.getCursos(1).subscribe(
+    this._servicioCurso.getCursos().subscribe(
       (res: Curso[]) => {
         this.cursos = res
       },
@@ -54,5 +64,12 @@ export class DashboardProfesoresComponent {
         console.error('Error al obtener la lista de cursos:', error);
       }
     );
+  }
+
+  cerrarSesion(): void {
+    // Elimina el token y redirige al inicio de sesión
+    this._loginService.removeAuthToken();
+    this._loginService.removeIdUser();
+    this.router.navigate(['/login']);
   }
 }
