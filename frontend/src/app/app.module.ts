@@ -10,12 +10,14 @@ import { DashboardLoginComponent } from './components/dashboard-login/dashboard-
 
 // Servicios
 import { LoginService } from "./services/login-service";
+import { DashboardProfesoresComponent } from './components/dashboard-profesores/dashboard-profesores.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardAlumnosComponent,
-    DashboardLoginComponent
+    DashboardLoginComponent,
+    DashboardProfesoresComponent
   ],
   imports: [
     BrowserModule,
