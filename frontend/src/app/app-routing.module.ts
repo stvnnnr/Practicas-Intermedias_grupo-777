@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardAlumnosComponent } from './components/dashboard-alumnos/dashboard-alumnos.component';
 import { DashboardLoginComponent } from './components/dashboard-login/dashboard-login.component';
 import { DashboardProfesoresComponent } from './components/dashboard-profesores/dashboard-profesores.component';
+import { DashboardAdmonComponent } from './components/dashboard-admon/dashboard-admon.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   },
   {
     path: 'profesores', component: DashboardProfesoresComponent
+  },
+  {
+    path: 'admin',
+    component: DashboardAdmonComponent
   }
 ];
 

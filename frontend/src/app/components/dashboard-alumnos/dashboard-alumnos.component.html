@@ -1,1 +1,39 @@
-<p>dashboard-alumnos works!</p>
+<nav class="navbar oscuro">
+    <div class="container-fluid">
+      <a class="navbar-brand oscuro">Alumnos</a>
+      <form class="d-flex" role="search">
+        <button class="btn btn-outline-light" type="submit" (click)="Logout()">Logout</button>
+      </form>
+    </div>
+</nav>
+<br/>
+<div class="container">
+    <div class="card-body text-center">
+        <h3 class="card-title">Bienvenido {{ this.personalinfo.name }} {{ this.personalinfo.lastname }}</h3>
+        <br/>
+        <h4 class="card-title">CURSOS</h4>
+        <p class="card-text">Vista general de los cursos a los que esta asignado.</p>
+    </div>
+    <div class="card">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID Curso</th>
+                    <th scope="col">Nombre Curso</th>
+                    <th scope="col">Inicia</th>
+                    <th scope="col">Finaliza</th>
+                    <th scope="col">Profesor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let curso of cursos">
+                    <td>{{ curso.idCourse }}</td>
+                    <td>{{ curso.name }}</td>
+                    <td>{{ curso.startTime }}</td>
+                    <td>{{ curso.endTime }}</td>
+                    <td>{{ curso.professor.name }} {{ curso.professor.lastname }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
